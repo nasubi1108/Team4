@@ -1,5 +1,9 @@
 #Greenfoot project file
+<<<<<<< HEAD
 class.C.image=smiley1.png
+=======
+class.A.image=bomb.png
+>>>>>>> a080932cdf59189cff56ba46a29c3a5a65eba988
 editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
@@ -22,7 +26,11 @@ readme.x=10
 readme.y=10
 simulation.speed=50
 target1.height=50
+<<<<<<< HEAD
 target1.name=C
+=======
+target1.name=A
+>>>>>>> a080932cdf59189cff56ba46a29c3a5a65eba988
 target1.showInterface=false
 target1.type=ClassTarget
 target1.width=80
@@ -38,5 +46,10 @@ target2.y=0
 version=3.0.0
 width=825
 world.lastInstantiated=MyWorld
+<<<<<<< HEAD
 xPosition=995
 yPosition=283
+=======
+xPosition=226
+yPosition=422
+>>>>>>> a080932cdf59189cff56ba46a29c3a5a65eba988
