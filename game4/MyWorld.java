@@ -24,6 +24,8 @@ public class MyWorld extends World
         GreenfootImage bg = new GreenfootImage("background.png");
         setBackground(bg);
         
+        addObject( new hero(), 100, 250 );
+        addObject( new maou(), 500, 250 );
     }
     
     public void act()
