@@ -36,5 +36,10 @@ public class MyWorld extends World
            showText("TIME OVER", 300, 200);
            Greenfoot.stop();
        }  
+       
+       if(Greenfoot.isKeyDown("space"))
+       {
+           Greenfoot.setWorld(new MyWorld2());
+        }
         }
 }
