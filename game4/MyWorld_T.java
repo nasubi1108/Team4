@@ -1,19 +1,19 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MyWorld2 here.
+ * Write a description of class MyWorld_T here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyWorld2 extends World
+public class MyWorld_T extends World
 {
-    private int timecount = 1000;
+
     /**
-     * Constructor for objects of class MyWorld2.
+     * Constructor for objects of class MyWorld_T.
      * 
      */
-    public MyWorld2()
+    public MyWorld_T()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
@@ -21,20 +21,19 @@ public class MyWorld2 extends World
         GreenfootImage bg = new GreenfootImage("background.png");
         setBackground(bg);
         
-        addObject( new hero2(), 50, 250 );
-        addObject( new maou2(), 550, 250 );
+        addObject( new Title(), 300, 150 );
+        
+        showText("すたーと:spaceキー", 300, 300);
+        
         
     }
     
+    
     public void act()
     {
-        timecount--;
-        showText(""+timecount, 50,20 );
-        if( timecount == 0 ){
-           showText("TIME OVER", 300, 200);
-           Greenfoot.stop();
-       }  
+        if(Greenfoot.isKeyDown("space"))
+        {
+           Greenfoot.setWorld(new MyWorld());
+        }
     }
-    
-    
 }
