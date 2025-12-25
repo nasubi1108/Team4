@@ -15,6 +15,8 @@ public class MyWorld extends World
     private int i = 0;
     boolean spaceWasDown = false;
     
+    God theGod;
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -48,18 +50,20 @@ public class MyWorld extends World
        if(i==0)
        {
            addObject( new hero(), 75, 250 );
-           
            showText("神:アノレノレ...目覚めるのじゃ、アノレノレ...！",300,50);
            i++;
        }
        else if(i==1)
        {
+           
            showText("アノレノレ:イタタ...あれ？ここは？ボク何してたっけ？",300,50);
            i++;
        }
        else if(i==2)
        {
-           addObject( new God(), 500, 250 );
+           theGod = new God();
+           addObject(theGod, 500, 250);
+           
            showText("神:そこのモンスターに襲われて倒れていたのじゃよ",300,50);
            i++;
        }
@@ -89,7 +93,11 @@ public class MyWorld extends World
        }
        else if(i==7)
        {
-           removeObject( new God() );
+           if(theGod != null)
+           {
+               removeObject(theGod);
+           }
+           
            addObject( new enemy(), 500, 250 );
            showText("神:では早速あのモンスターを倒すのじゃ！",300,50);
            showText("（バトル１突入)",300,70);
