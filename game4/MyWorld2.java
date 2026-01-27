@@ -33,13 +33,29 @@ public class MyWorld2 extends World
         setBackground(bg);
         
         addObject( new hero2(), 50, 250 );
-        addObject( new maou2(), 550, 250 );
+        
+        int E = 1;
+        E = 1 + E;
+        
+        if(E==2)
+        {
+            addObject( new enemy2(), 550, 250 );
+        }
+        
+        if(E==3)
+        {
+            addObject( new maou2(), 550, 250 );
+        }
+        
+        if(E==4)
+        {
+            addObject( new God2(), 550, 250 );
+            E = 1;
+        }
         
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         
-        addObject( new hero(), 100, 250 );
-        addObject( new maou(), 500, 250 );
-
+        
         // 盤面を背景の中心に置くためのマージン（左上の始点）
         marginX = (getWidth()  - BOARD_PIX_W) / 2;
         marginY = (getHeight() - BOARD_PIX_H) / 2;
