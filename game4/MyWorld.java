@@ -12,7 +12,7 @@ public class MyWorld extends World
 {
     private int timecount = 1000;
     
-    private int i = 0;
+    static int i = 0;////////////
     boolean spaceWasDown = false;
     
     /**
@@ -40,7 +40,7 @@ public class MyWorld extends World
        if(Greenfoot.isKeyDown("Z"))
        {
            Greenfoot.setWorld(new MyWorld2());
-        }
+       }
         
        boolean spaceDown = Greenfoot.isKeyDown("space");
        if(spaceDown && !spaceWasDown)
@@ -97,6 +97,10 @@ public class MyWorld extends World
        }
 
        //バトル１を開始
+       else if(Greenfoot.isKeyDown("space"))
+        {
+           Greenfoot.setWorld(new MyWorld2());
+        }
        //バトル１をクリア
        else if(i==8)
        {
@@ -135,7 +139,7 @@ public class MyWorld extends World
        }
        else if(i==14)
        {
-           showText("神:問答無用じゃ！！むむむ...カアアア！！",300,50);
+           showText("神:問答無用じゃ！！むむむ...カアアアッ",300,50);
            showText("",300,70);
            i++;
        }
@@ -417,7 +421,4 @@ public class MyWorld extends World
    }
        spaceWasDown = spaceDown;
    }
-   
-   
-    
 }

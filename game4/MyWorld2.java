@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyWorld2 extends World
 {
     private int timecount = 1000;
+    private boolean canOperate = true;/////////////////
     /**
      * Constructor for objects of class MyWorld2.
      * 
@@ -70,6 +71,7 @@ public class MyWorld2 extends World
         shuffleTiles();
  
     }
+    
     /** (col,row) の領域だけをタイル画像に切り出す */
     private GreenfootImage cutTileImage(int col, int row) {
         GreenfootImage img = new GreenfootImage(TILE_SIZE, TILE_SIZE);
@@ -105,15 +107,24 @@ public class MyWorld2 extends World
     }
  
  
-    public void act()
+    public void act()///////////////////
     {
+       if(timecount > 0){
         timecount--;
-        showText(""+timecount, 50,20 );
-        if( timecount == 0 ){
-           showText("TIME OVER", 300, 200);
-           Greenfoot.stop();
-       }  
+       }
+       else{
+           canOperate = false;
+       }
+       showText("TIME: "+ timecount,getWidth()/2,20);
+       if(timecount <= 0){
+           if(Greenfoot.isKeyDown("space")){
+           MyWorld.i = 8;
+           Greenfoot.setWorld(new MyWorld_T());
+        }
+       }
     }
-    
-    
+    public boolean canOperate()
+    {
+        return canOperate;
+    }
 }
