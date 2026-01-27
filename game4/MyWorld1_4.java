@@ -151,9 +151,9 @@ public class MyWorld1_4 extends World
  
        {
  
-           showText("終",300,50);
+           showText("GAMECLEAR!!",300,50);
  
-           showText("",300,70);
+           showText("おめでとう",300,70);
  
            i++;
  

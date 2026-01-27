@@ -6,14 +6,11 @@ import java.util.Random;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyWorld2 extends World
+public class MyWorld2_2 extends World
 {
-
     private int timecount = 10000;
-    private boolean canOperate = true;/////////////////
-
     /**
-     * Constructor for objects of class MyWorld2.
+     * Constructor for objects of class MyWorld2_2.
      * 
      */
     // 分割数（3x3）と、パズルの総ピクセルサイズ（360x360）
@@ -32,7 +29,7 @@ public class MyWorld2 extends World
         private GreenfootImage source; // 分割元画像（360x360にスケールして使用）
         private Tile emptyTile;
     
-    public MyWorld2()
+    public MyWorld2_2()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
@@ -110,9 +107,6 @@ public class MyWorld2 extends World
         drawBoardFrame();
         showText("[Esc]で戻る", getWidth() / 2, getHeight() - 20);
         shuffleTiles();
-    }
-    
-
 
       //   if(Greenfoot.mouseClicked(this)){
              
@@ -129,7 +123,7 @@ public class MyWorld2 extends World
         // }
          
 
-
+    } 
     /** (col,row) の領域だけをタイル画像に切り出す */
     private GreenfootImage cutTileImage(int col, int row) {
         GreenfootImage img = new GreenfootImage(TILE_SIZE, TILE_SIZE);
@@ -191,37 +185,15 @@ public class MyWorld2 extends World
  
     public void act()
     {
-//       if(timecount > 0){
         timecount--;
-/*
-    }
-       else{
-           canOperate = false;
-       }
-       
-       showText("TIME: "+ timecount,getWidth()/2,20);
-       if(timecount <= 0){
-           showText("TIME OVER", 300, 200);
-           if(Greenfoot.isKeyDown("space")){
-           MyWorld.i = 8;
-           Greenfoot.setWorld(new MyWorld_T());
-        }
-       }
-*/
         showText(""+timecount, 50,20 );
         if( timecount == 0 ){
            showText("TIME OVER", 300, 200);
            Greenfoot.stop();
        }
-        
-        handleTileClick(); // ←ここでクリック判定
+           handleTileClick(); // ←ここでクリック判定
 }
 
-    public boolean getCanOperate()
-    {
-        return canOperate;
-    }
-    
 private void handleTileClick() {
     if (Greenfoot.mouseClicked(null)) {
         MouseInfo mi = Greenfoot.getMouseInfo();
