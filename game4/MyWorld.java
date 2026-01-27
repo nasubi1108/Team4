@@ -12,7 +12,7 @@ public class MyWorld extends World
 {
     private int timecount = 1000;
     
-    static int i = 0;////////////
+    int i = 0;////////////
     boolean spaceWasDown = false;
     
     God theGod;
@@ -25,8 +25,13 @@ public class MyWorld extends World
     
     public MyWorld()
     {    
+
+        
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
+        
+       i = 0;
+       spaceWasDown = false;
         
         GreenfootImage bg = new GreenfootImage("background.png");
         setBackground(bg);
@@ -158,6 +163,11 @@ public class MyWorld extends World
            showText("アノレノレ:ちょっと待ってよ！まだ心の準備が！",300,50);
            showText("うわあああああああああ！！(バトル２突入)",300,70);
            i++;
+           
+           if(Greenfoot.isKeyDown("Space"))
+           {
+               Greenfoot.setWorld(new MyWorld2());
+           }
        }
        //バトル１を開始
        //バトル１をクリア
