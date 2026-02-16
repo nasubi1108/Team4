@@ -110,7 +110,7 @@ public class MyWorld1_2 extends World
            i++;
            if(Greenfoot.isKeyDown("Space"))
            {
-               Greenfoot.setWorld(new MyWorld1_3());
+               Greenfoot.setWorld(new MyWorld2_2());
            }
        }
     

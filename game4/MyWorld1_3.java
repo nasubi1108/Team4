@@ -26,6 +26,7 @@ public class MyWorld1_3 extends World
        super(600, 400, 1); 
         
         GreenfootImage bg = new GreenfootImage("background.png");
+        
         setBackground(bg);
         
         if(Greenfoot.isKeyDown("space"))
@@ -37,7 +38,7 @@ public class MyWorld1_3 extends World
     
     public void act()
     {  
-        
+       GreenfootImage bg2 = new GreenfootImage("background2.png"); 
        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
        boolean spaceDown = Greenfoot.isKeyDown("space");
        if(spaceDown && !spaceWasDown)
@@ -116,7 +117,7 @@ public class MyWorld1_3 extends World
        else if(i==6)
  
        {
- 
+            setBackground(bg2);
            showText("神:これで世界はワシのものじゃあああああああああ！！",300,50);
  
            i++;
@@ -239,7 +240,7 @@ public class MyWorld1_3 extends World
            i++;
            if(Greenfoot.isKeyDown("Space"))
            {
-               Greenfoot.setWorld(new MyWorld1_4());
+               Greenfoot.setWorld(new MyWorld2_3());
            }
            
        }

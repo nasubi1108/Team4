@@ -11,7 +11,8 @@ public class MyWorld2 extends World
 
     private int timecount = 10000;
     private boolean canOperate = true;/////////////////
-
+    private boolean isCleared = false;
+    private int clearTimer = 0; 
     /**
      * Constructor for objects of class MyWorld2.
      * 
@@ -130,7 +131,7 @@ public class MyWorld2 extends World
          
 
 
-    /** (col,row) の領域だけをタイル画像に切り出す */
+    
     private GreenfootImage cutTileImage(int col, int row) {
         GreenfootImage img = new GreenfootImage(TILE_SIZE, TILE_SIZE);
         // source を負のオフセットで描く＝欲しい部分だけ取り込む
@@ -142,14 +143,14 @@ public class MyWorld2 extends World
         return img;
     }
  
-    /** 盤面の外枠を背景に描く（中央の360x360を囲む） */
+   
     private void drawBoardFrame() {
         GreenfootImage bg = getBackground();
         bg.setColor(Color.BLACK);
         bg.drawRect(marginX - 2, marginY - 2, BOARD_PIX_W + 4, BOARD_PIX_H + 4);
     }
  
-    /** 簡易シャッフル：表示済みのタイルをランダムに並べ替える */
+   
     private void shuffleTiles() {
         java.util.List<Tile> tiles = getObjects(Tile.class);
         for (int i = 0; i < 100; i++) {
@@ -185,44 +186,41 @@ public class MyWorld2 extends World
         tileA.setGridPosition(rowB,colB);
         tileB.setGridPosition(rowA,colA);
         
+        tilesGrid[rowA][colA] = tileB;
+        tilesGrid[rowB][colB] = tileA;
+        
     }
 
     
  
     public void act()
     {
-//       if(timecount > 0){
-        timecount--;
-/*
-    }
-       else{
-           canOperate = false;
-       }
-       
-       showText("TIME: "+ timecount,getWidth()/2,20);
-       if(timecount <= 0){
-           showText("TIME OVER", 300, 200);
-           if(Greenfoot.isKeyDown("space")){
-           MyWorld.i = 8;
-           Greenfoot.setWorld(new MyWorld_T());
+        if (isCleared) {
+                if (Greenfoot.isKeyDown("space")) {
+                Greenfoot.setWorld(new MyWorld1_2());
+                }
+                return; 
+            }
+
+    timecount--;
+    showText(""+timecount, 50,20 );
+
+        if( timecount <= 0 ){
+            showText("TIME OVER", 300, 200);
+            Greenfoot.stop();
+            return;
         }
-       }
-*/
-        showText(""+timecount, 50,20 );
-        if( timecount == 0 ){
-           showText("TIME OVER", 300, 200);
-           Greenfoot.stop();
-       }
-        
-        handleTileClick(); // ←ここでクリック判定
-}
+
+    handleTileClick();
+    checkCollectTile();  
+    }
 
     public boolean getCanOperate()
     {
         return canOperate;
     }
     
-private void handleTileClick() {
+    private void handleTileClick() {
     if (Greenfoot.mouseClicked(null)) {
         MouseInfo mi = Greenfoot.getMouseInfo();
         if (mi == null) return;
@@ -243,7 +241,25 @@ private void handleTileClick() {
 
     }
     
-    
+    private void checkCollectTile(){
+        for (int row = 0; row < BOARD_N; row++) {
+            for (int col = 0; col < BOARD_N; col++) {
+                 
+               Tile t = tilesGrid[row][col];
+                int correctValue = CREAER_PATTERN[row][col];
+
+                if (t.getValue() != correctValue) {
+                    return; // 1つでも違えば終了
+                }
+            }
+        }
+        isCleared = true;
+        canOperate = false; // 操作停止
+
+        showText("CLEAR!", getWidth()/2, getHeight()/2);
+        showText("Press SPACE to continue", getWidth()/2, getHeight()/2 + 40);
+
+    }
     
     
 }

@@ -8,9 +8,13 @@ import java.util.Random;
  */
 public class MyWorld2_3 extends World
 {
+
     private int timecount = 10000;
+    private boolean canOperate = true;/////////////////
+    private boolean isCleared = false;
+    private int clearTimer = 0; 
     /**
-     * Constructor for objects of class MyWorld2_3.
+     * Constructor for objects of class MyWorld2.
      * 
      */
     // 分割数（3x3）と、パズルの総ピクセルサイズ（360x360）
@@ -34,8 +38,8 @@ public class MyWorld2_3 extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
         
-        GreenfootImage bg = new GreenfootImage("background.png");
-        setBackground(bg);
+        GreenfootImage bg2 = new GreenfootImage("background2.png");
+        setBackground(bg2);
         addObject( new hero2(), 50, 250 );
         
         int E = 1;
@@ -62,14 +66,14 @@ public class MyWorld2_3 extends World
         marginY = (getHeight() - BOARD_PIX_H) / 2;
  
         // パズル元画像（350x350）を読み込み→360x360にスケール（均等120px分割のため）
-        source = new GreenfootImage("Tile.png");
+        source = new GreenfootImage("Tile3.png");
         source.scale(BOARD_PIX_W, BOARD_PIX_H);
  
         // タイルを 3x3 に分割して、背景中央に並べる（生成まで）
         int value = 1;
         for (int row = 0; row < BOARD_N; row++) {
             for (int col = 0; col < BOARD_N; col++) {
-                // ここでは「生成を確認するため」9枚とも表示
+                // 
                 if(row==BOARD_N-1 && col==BOARD_N -1){
                     GreenfootImage blankImg = new GreenfootImage(TILE_SIZE,TILE_SIZE);
                     blankImg.setColor(Color.LIGHT_GRAY);
@@ -107,6 +111,9 @@ public class MyWorld2_3 extends World
         drawBoardFrame();
         showText("[Esc]で戻る", getWidth() / 2, getHeight() - 20);
         shuffleTiles();
+    }
+    
+
 
       //   if(Greenfoot.mouseClicked(this)){
              
@@ -123,8 +130,8 @@ public class MyWorld2_3 extends World
         // }
          
 
-    } 
-    /** (col,row) の領域だけをタイル画像に切り出す */
+
+    
     private GreenfootImage cutTileImage(int col, int row) {
         GreenfootImage img = new GreenfootImage(TILE_SIZE, TILE_SIZE);
         // source を負のオフセットで描く＝欲しい部分だけ取り込む
@@ -136,14 +143,14 @@ public class MyWorld2_3 extends World
         return img;
     }
  
-    /** 盤面の外枠を背景に描く（中央の360x360を囲む） */
+   
     private void drawBoardFrame() {
         GreenfootImage bg = getBackground();
         bg.setColor(Color.BLACK);
         bg.drawRect(marginX - 2, marginY - 2, BOARD_PIX_W + 4, BOARD_PIX_H + 4);
     }
  
-    /** 簡易シャッフル：表示済みのタイルをランダムに並べ替える */
+   
     private void shuffleTiles() {
         java.util.List<Tile> tiles = getObjects(Tile.class);
         for (int i = 0; i < 100; i++) {
@@ -179,22 +186,41 @@ public class MyWorld2_3 extends World
         tileA.setGridPosition(rowB,colB);
         tileB.setGridPosition(rowA,colA);
         
+        tilesGrid[rowA][colA] = tileB;
+        tilesGrid[rowB][colB] = tileA;
+        
     }
 
     
  
     public void act()
     {
-        timecount--;
-        showText(""+timecount, 50,20 );
-        if( timecount == 0 ){
-           showText("TIME OVER", 300, 200);
-           Greenfoot.stop();
-       }
-           handleTileClick(); // ←ここでクリック判定
-}
+        if (isCleared) {
+                if (Greenfoot.isKeyDown("space")) {
+                Greenfoot.setWorld(new MyWorld1_4());
+                }
+                return; 
+            }
 
-private void handleTileClick() {
+    timecount--;
+    showText(""+timecount, 50,20 );
+
+        if( timecount <= 0 ){
+            showText("TIME OVER", 300, 200);
+            Greenfoot.stop();
+            return;
+        }
+
+    handleTileClick();
+    checkCollectTile();  
+    }
+
+    public boolean getCanOperate()
+    {
+        return canOperate;
+    }
+    
+    private void handleTileClick() {
     if (Greenfoot.mouseClicked(null)) {
         MouseInfo mi = Greenfoot.getMouseInfo();
         if (mi == null) return;
@@ -215,7 +241,25 @@ private void handleTileClick() {
 
     }
     
-    
+    private void checkCollectTile(){
+        for (int row = 0; row < BOARD_N; row++) {
+            for (int col = 0; col < BOARD_N; col++) {
+                 
+               Tile t = tilesGrid[row][col];
+                int correctValue = CREAER_PATTERN[row][col];
+
+                if (t.getValue() != correctValue) {
+                    return; // 1つでも違えば終了
+                }
+            }
+        }
+        isCleared = true;
+        canOperate = false; // 操作停止
+
+        showText("CLEAR!", getWidth()/2, getHeight()/2);
+        showText("Press SPACE to continue", getWidth()/2, getHeight()/2 + 40);
+
+    }
     
     
 }
